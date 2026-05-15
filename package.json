@@ -1,0 +1,12 @@
+{
+  "name": "ruijie-midtrans-portal",
+  "version": "1.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.19.2",
+    "midtrans-client": "^1.3.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

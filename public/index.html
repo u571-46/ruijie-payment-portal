@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beli Voucher WiFi</title>
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-TCib3X-qTjD4RsGp"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px 20px; background: #f4f6f9; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 400px; margin: 20px auto; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%; }
+        .voucher-display { font-size: 24px; font-weight: bold; color: green; margin-top: 20px; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+
+    <h2>Pilih Paket WiFi Hotspot</h2>
+    
+    <div class="card">
+        <h3>Paket 1 Jam</h3>
+        <p>Harga: Rp 3.000</p>
+        <button onclick="bayar('paket_1jam')">Beli Sekarang</button>
+    </div>
+
+    <div class="card">
+        <h3>Paket 24 Jam</h3>
+        <p>Harga: Rp 15.000</p>
+        <button onclick="bayar('paket_24jam')">Beli Sekarang</button>
+    </div>
+
+    <div id="result-container" class="card" style="display:none;">
+        <p>Pembayaran Berhasil! Catat Kode Voucher Anda:</p>
+        <div id="voucher-code" class="voucher-display">------</div>
+        <p style="font-size:12px; color:red;">Masukkan kode di atas ke halaman login utama Ruijie Anda.</p>
+    </div>
+
+    <script>
+        async function bayar(packageId) {
+            const response = await fetch('/api/pay', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ packageId })
+            });
+            const data = await response.json();
+            
+            window.snap.pay(data.token, {
+                onSuccess: function(result){
+                    ambilVoucher(packageId);
+                },
+                onPending: function(result){ alert("Menunggu pembayaran..."); },
+                onError: function(result){ alert("Pembayaran gagal!"); }
+            });
+        }
+
+        async function ambilVoucher(packageId) {
+            const response = await fetch(`/api/get-voucher/${packageId}`);
+            const data = await response.json();
+            if(data.success) {
+                document.getElementById('result-container').style.display = 'block';
+                document.getElementById('voucher-code').innerText = data.code;
+            } else {
+                alert(data.message);
+            }
+        }
+    </script>
+</body>
+</html>
