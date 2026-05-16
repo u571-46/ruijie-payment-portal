@@ -107,7 +107,7 @@ app.post('/api/pay', async (req, res) => {
     }
 });
 
-// Endpoint Pembagian Voucher Otomatis Berbasis File Database (Mikhmon Style)
+// Endpoint Pembagian Voucher Otomatis Berbasis File Database (Admin Style)
 app.get('/api/get-voucher/:packageId', (req, res) => {
     const { packageId } = req.params;
     let vouchers = readJSON(VOUCHER_FILE);
@@ -157,7 +157,7 @@ app.get('/api/portal-settings', (req, res) => {
 
 
 // ==========================================
-// ADMIN DASHBOARD & MANAGEMENT (MIKHMON UI)
+// ADMIN DASHBOARD & MANAGEMENT (Admin UI)
 // ==========================================
 
 app.get('/admin/portal-config', (req, res) => {
@@ -176,7 +176,7 @@ app.get('/admin/portal-config', (req, res) => {
     <html lang="id">
     <head>
         <meta charset="UTF-8">
-        <title>KQ5 DIGITAL - Mikhmon Dashboard</title>
+        <title>KQ5 DIGITAL - Admin Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
@@ -396,7 +396,7 @@ app.get('/admin/portal-config', (req, res) => {
         </div>
 
         <script>
-            // Fungsi Pengendali Mekanisme Tab Navigasi Mikhmon
+            // Fungsi Pengendali Mekanisme Tab Navigasi Admin
             function openTab(tabId) {
                 // Nonaktifkan semua panel tab
                 document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
