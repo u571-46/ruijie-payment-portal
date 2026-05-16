@@ -3,64 +3,632 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beli Voucher WiFi</title>
+    <title>KQ5 DIGITAL - Portal Voucher WiFi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-TCib3X-qTjD4RsGp"></script>
+    
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px 20px; background: #f4f6f9; }
-        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 400px; margin: 20px auto; }
-        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%; }
-        .voucher-display { font-size: 24px; font-weight: bold; color: green; margin-top: 20px; letter-spacing: 2px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #070b19 0%, #12092b 50%, #050814 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+            overflow-x: hidden;
+        }
+
+        /* Efek Pendaran Cahaya Latar Belakang */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #00d2ff;
+            filter: blur(120px);
+            top: -50px;
+            left: -50px;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #9a3eff;
+            filter: blur(120px);
+            bottom: -50px;
+            right: -50px;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            z-index: 1;
+        }
+
+        /* Header Style */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #00d2ff 0%, #9a3eff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 13px;
+            color: #a0aec0;
+            font-weight: 500;
+        }
+
+        /* Panduan Alur Langkah */
+        .steps-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #cbd5e0;
+        }
+
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            flex: 1;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        .step-item.active {
+            opacity: 1;
+            color: #00d2ff;
+            font-weight: 600;
+        }
+
+        .step-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .step-item.active .step-icon {
+            background: linear-gradient(135deg, #00d2ff 0%, #9a3eff 100%);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+            color: white;
+        }
+
+        .step-line {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            flex-grow: 1;
+            margin-bottom: 15px;
+        }
+
+        /* Desain Kartu Paket */
+        .section-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-left: 5px;
+        }
+
+        .section-title i {
+            color: #00d2ff;
+        }
+
+        .card-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .package-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #00d2ff, #9a3eff);
+            opacity: 0.7;
+        }
+
+        .package-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 210, 255, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 210, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .package-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .package-icon-box {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00d2ff;
+            font-size: 18px;
+        }
+
+        .package-card:nth-child(2) .package-icon-box {
+            background: rgba(154, 62, 255, 0.1);
+            border: 1px solid rgba(154, 62, 255, 0.2);
+            color: #9a3eff;
+        }
+
+        .package-details h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .package-details p {
+            font-size: 12px;
+            color: #a0aec0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .package-price-action {
+            text-align: right;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .buy-btn {
+            background: linear-gradient(90deg, #00d2ff 0%, #0099ff 100%);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .package-card:nth-child(2) .buy-btn {
+            background: linear-gradient(90deg, #9a3eff 0%, #7928ca 100%);
+        }
+
+        .buy-btn:hover {
+            filter: brightness(1.1);
+            transform: scale(1.03);
+        }
+
+        .buy-btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        .buy-btn.loading i {
+            animation: spin 1s infinite linear;
+        }
+
+        /* Tampilan Kotak Hasil Sukses */
+        .result-card {
+            background: linear-gradient(135deg, rgba(0, 210, 255, 0.08) 0%, rgba(154, 62, 255, 0.08) 100%);
+            border: 2px dashed rgba(0, 210, 255, 0.4);
+            border-radius: 24px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 5px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            animation: scaleUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none;
+        }
+
+        .success-badge {
+            width: 50px;
+            height: 50px;
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .result-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .result-card p.subtitle {
+            font-size: 12px;
+            color: #cbd5e0;
+            margin-bottom: 20px;
+        }
+
+        .voucher-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .voucher-code {
+            font-size: 24px;
+            font-weight: 800;
+            color: #00d2ff;
+            letter-spacing: 3px;
+            padding-left: 10px;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-btn:hover {
+            background: white;
+            color: #0a0f24;
+        }
+
+        .instructions {
+            font-size: 11px;
+            color: #a0aec0;
+            line-height: 1.5;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        /* Notifikasi Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 999;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: auto;
+            padding-top: 40px;
+            font-size: 11px;
+            color: #4a5568;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleUp {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media(max-width: 360px) {
+            .package-card { padding: 15px; }
+            .price { font-size: 16px; }
+            .voucher-code { font-size: 20px; }
+        }
     </style>
 </head>
 <body>
 
-    <h2>Pilih Paket WiFi Hotspot</h2>
-    
-    <div class="card">
-        <h3>Paket 1 Jam</h3>
-        <p>Harga: Rp 3.000</p>
-        <button onclick="bayar('paket_1jam')">Beli Sekarang</button>
+    <div class="container">
+        
+        <div class="header">
+            <div class="logo-container">
+                <img src="data:image/png;base64,LOKASI_KODE_LOGO_TERTanam_DI_FILE_DOWNLOAD" class="logo" alt="KQ5 DIGITAL Logo">
+            </div>
+            <h1>KQ5 DIGITAL</h1>
+            <p>Portal Pembayaran Otomatis WiFi Hotspot</p>
+        </div>
+
+        <div class="steps-container">
+            <div class="step-item active" id="step1">
+                <div class="step-icon">1</div>
+                <span>Pilih Paket</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-item" id="step2">
+                <div class="step-icon">2</div>
+                <span>Bayar QRIS</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-item" id="step3">
+                <div class="step-icon">3</div>
+                <span>Selesai</span>
+            </div>
+        </div>
+
+        <div id="shop-section">
+            <div class="section-title">
+                <i class="fa-solid fa-wifi"></i> Pilih Paket Internet Anda
+            </div>
+            
+            <div class="card-grid">
+                <div class="package-card" onclick="prosesBayar('paket_1jam', this)">
+                    <div class="package-info">
+                        <div class="package-icon-box">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div class="package-details">
+                            <h3>Paket Ekstra 1 Jam</h3>
+                            <p><i class="fa-solid fa-bolt"></i> Speed s.d 10 Mbps</p>
+                        </div>
+                    </div>
+                    <div class="package-price-action">
+                        <div class="price">Rp 3.000</div>
+                        <button class="buy-btn">
+                            Beli <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="package-card" onclick="prosesBayar('paket_24jam', this)">
+                    <div class="package-info">
+                        <div class="package-info">
+                        <div class="package-icon-box">
+                            <i class="fa-solid fa-calendar-day"></i>
+                        </div>
+                        <div class="package-details">
+                            <h3>Paket Puas 24 Jam</h3>
+                            <p><i class="fa-solid fa-bolt"></i> Speed s.d 15 Mbps</p>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="package-price-action">
+                        <div class="price">Rp 15.000</div>
+                        <button class="buy-btn">
+                            Beli <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="result-container" class="result-card">
+            <div class="success-badge">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h4>Pembayaran Berhasil!</h4>
+            <p class="subtitle">Gunakan kode voucher di bawah ini untuk masuk</p>
+            
+            <div class="voucher-box">
+                <div id="voucher-code" class="voucher-code">------</div>
+                <button class="copy-btn" onclick="salinVoucher()">
+                    <i class="fa-regular fa-copy"></i> Salin
+                </button>
+            </div>
+            
+            <div class="instructions">
+                <strong>Cara Pakai:</strong> Kembali ke halaman login utama Ruijie WiFi Anda, masukkan/paste kode voucher di atas ke dalam kolom "Access Code", lalu klik Login.
+            </div>
+        </div>
+
     </div>
 
-    <div class="card">
-        <h3>Paket 24 Jam</h3>
-        <p>Harga: Rp 15.000</p>
-        <button onclick="bayar('paket_24jam')">Beli Sekarang</button>
+    <div id="toast-notif" class="toast">
+        <i class="fa-solid fa-circle-check"></i> <span id="toast-text">Kode berhasil disalin!</span>
     </div>
 
-    <div id="result-container" class="card" style="display:none;">
-        <p>Pembayaran Berhasil! Catat Kode Voucher Anda:</p>
-        <div id="voucher-code" class="voucher-display">------</div>
-        <p style="font-size:12px; color:red;">Masukkan kode di atas ke halaman login utama Ruijie Anda.</p>
+    <div class="footer-text">
+        &copy; 2026 KQ5 DIGITAL. All Rights Reserved. Powered by Midtrans & Ruijie.
     </div>
 
     <script>
-        async function bayar(packageId) {
-            const response = await fetch('/api/pay', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ packageId })
-            });
-            const data = await response.json();
+        async function prosesBayar(packageId, cardElement) {
+            const btn = cardElement.querySelector('.buy-btn');
+            if (btn.classList.contains('loading')) return;
             
-            window.snap.pay(data.token, {
-                onSuccess: function(result){
-                    ambilVoucher(packageId);
-                },
-                onPending: function(result){ alert("Menunggu pembayaran..."); },
-                onError: function(result){ alert("Pembayaran gagal!"); }
-            });
+            btn.classList.add('loading');
+            btn.innerHTML = '<i class="fa-solid fa-spinner"></i> Proses...';
+            document.getElementById('step2').classList.add('active');
+
+            try {
+                const response = await fetch('/api/pay', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ packageId })
+                });
+                const data = await response.json();
+                
+                window.snap.pay(data.token, {
+                    onSuccess: function(result){
+                        document.getElementById('step3').classList.add('active');
+                        ambilVoucher(packageId);
+                    },
+                    onPending: function(result){
+                        showToast("Menunggu pembayaran Anda...", "#f59e0b", "fa-solid fa-hourglass-half");
+                        resetButton(btn);
+                    },
+                    onError: function(result){
+                        showToast("Pembayaran dibatalkan/gagal.", "#ef4444", "fa-solid fa-circle-xmark");
+                        resetButton(btn);
+                        document.getElementById('step2').classList.remove('active');
+                    },
+                    onClose: function(){
+                        resetButton(btn);
+                        document.getElementById('step2').classList.remove('active');
+                    }
+                });
+            } catch (error) {
+                showToast("Gagal tersambung ke server kasir.", "#ef4444", "fa-solid fa-circle-xmark");
+                resetButton(btn);
+                document.getElementById('step2').classList.remove('active');
+            }
+        }
+
+        function resetButton(btn) {
+            btn.classList.remove('loading');
+            btn.innerHTML = 'Beli <i class="fa-solid fa-chevron-right"></i>';
         }
 
         async function ambilVoucher(packageId) {
-            const response = await fetch(`/api/get-voucher/${packageId}`);
-            const data = await response.json();
-            if(data.success) {
-                document.getElementById('result-container').style.display = 'block';
-                document.getElementById('voucher-code').innerText = data.code;
-            } else {
-                alert(data.message);
+            try {
+                const response = await fetch('/api/get-voucher/' + packageId);
+                const data = await response.json();
+                
+                if(data.success) {
+                    document.getElementById('shop-section').style.display = 'none';
+                    document.getElementById('result-container').style.display = 'block';
+                    document.getElementById('voucher-code').innerText = data.code;
+                    showToast("Voucher Anda berhasil diterbitkan!", "#10b981", "fa-solid fa-circle-check");
+                } else {
+                    alert("Gagal mengambil voucher: " + data.message + ". Hubungi Admin.");
+                }
+            } catch (err) {
+                alert("Koneksi terputus saat mengambil voucher. Silakan hubungi Admin.");
             }
+        }
+
+        function salinVoucher() {
+            const codeText = document.getElementById('voucher-code').innerText;
+            if (codeText === '------') return;
+            
+            navigator.clipboard.writeText(codeText).then(() => {
+                showToast("Kode voucher berhasil disalin!", "#10b981", "fa-solid fa-circle-check");
+            }).catch(() => {
+                const input = document.createElement('input');
+                input.value = codeText;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast("Kode voucher berhasil disalin!", "#10b981", "fa-solid fa-circle-check");
+            });
+        }
+
+        function showToast(message, bgColor = "#10b981", iconClass = "fa-solid fa-circle-check") {
+            const toast = document.getElementById('toast-notif');
+            toast.style.background = bgColor;
+            toast.innerHTML = '<i class="' + iconClass + '"></i> <span>' + message + '</span>';
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3500);
         }
     </script>
 </body>
