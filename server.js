@@ -240,7 +240,7 @@ app.get('/admin/portal-config', (req, res) => {
 
         <div class="sidebar">
             <div class="sidebar-brand">
-                <h3>Mikhmon Portal</h3>
+                <h3>Admin Portal</h3>
                 <span style="font-size:11px; color:#64748b;">v1.0.0 &copy; KQ5 DIGITAL</span>
             </div>
             <ul class="nav-tabs-list">
